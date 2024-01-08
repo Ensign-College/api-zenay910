@@ -1,0 +1,11 @@
+{
+  "name": "api-zenay910",
+  "version": "1.0.0",
+  "description": "API",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}
