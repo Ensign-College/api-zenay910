@@ -1,6 +1,11 @@
 const express = require('express');//express makes API's ~ connect frontend to database
 const Redis = require('redis');//import the Redis Library
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
+const options = {
+    origin:'http://localhost:3000'//allow our frontend to call this backend
+}
 
 const app = express();//create on express application ~ it's like a constructor 
 const redisClient = Redis.createClient({
@@ -8,8 +13,9 @@ const redisClient = Redis.createClient({
 });
 
 app.use(bodyParser.json());
+app.use(cors(options));//allow frontend to call backend
 
-const port = 3000;//this is the port number
+const port = 3001;//this is the port number
 app.listen(port, ()=>{
     redisClient.connect();//this connects to the redis database! ! ! ! ! !
     console.log(`API is listening on port: ${port}`);
@@ -23,7 +29,7 @@ app.listen(port, ()=>{
 app.get('/boxes', async (req, res)=>{
     let boxes = await redisClient.json.get('boxes',{path: '$'});//get the boxes
     //send the boxes to the browser
-    res.send(JSON.stringify(boxes));//convert boxes to a string
+    res.json(boxes[0]);//the boxes is an array of arrays, convert first element to a JSON string
 });//return boxes to the user
 
 //A function to create a new box
