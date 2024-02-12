@@ -21,6 +21,14 @@ app.listen(port, ()=>{
     console.log(`API is listening on port: ${port}`);
 });//listen for web requests from the front end and don't stop
 
+    const product = {
+        "sku": "ASB124",
+        "name": "PC Gamer",
+        "productID": "PC002",
+        "image": "",
+        "price": 3456
+    }
+
 // 1. URL
 // 2. A function to return boxes
 // 3. req = the request from the browser
@@ -32,11 +40,32 @@ app.get('/boxes', async (req, res)=>{
     res.json(boxes[0]);//the boxes is an array of arrays, convert first element to a JSON string
 });//return boxes to the user
 
-//A function to create a new box
-app.post('/boxes', async (req, res)=>{// async means we will await promises
+//A function to create a new product
+app.post('/products', async (req, res)=>{// async means we will await promises
 
+    const newProduct = {//creating a new, hard coded, product with dummy data
+        "sku": "ASB124",
+        "name": "PC Gamer",
+        "productID": "PC003",
+        "image": "",
+        "price": 3456
+    }
+
+    const productKey = `product:${newProduct.productID}-${Date.now()}`;//creating the unique product ID (to name it in redis), with the productID and the current date information
+
+    try {
+        // Set the value of the 'product' key in Redis with the JSON object
+        await redisClient.json.set(productKey, '.', newProduct);
+        console.log('Product added successfully to Redis');
+      } catch (error) {
+        console.error('Error adding product to Redis:', error);
+      }
+    res.json(newProduct);//respond with a new product
+});
+
+app.post('/boxes', async (req, res)=>{// async means we will await promises
     const newBox = req.body;
-    newBox.id = parseInt( await redisClient.json.arrLen('boxes','$'))+1;//the user shouldn't be allowed to choose the ID
+    newBox.id = parseInt(await redisClient.json.arrLen('boxes','$'))+1;//the user shouldn't be allowed to choose the ID
     await redisClient.json.arrAppend('boxes', '$',newBox); //saves the JSON in redis
     res.json(newBox);//respond with a new box
 });
