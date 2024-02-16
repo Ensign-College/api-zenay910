@@ -21,35 +21,15 @@ app.listen(port, ()=>{
     console.log(`API is listening on port: ${port}`);
 });//listen for web requests from the front end and don't stop
 
-    const product = {
-        "sku": "ASB124",
-        "name": "PC Gamer",
-        "productID": "PC002",
-        "image": "",
-        "price": 3456
-    }
-
 // 1. URL
 // 2. A function to return boxes
 // 3. req = the request from the browser
 // 4. res = the response from the browser
 
-app.get('/boxes', async (req, res)=>{
-    let boxes = await redisClient.json.get('boxes',{path: '$'});//get the boxes
-    //send the boxes to the browser
-    res.json(boxes[0]);//the boxes is an array of arrays, convert first element to a JSON string
-});//return boxes to the user
-
 //A function to create a new product
 app.post('/products', async (req, res)=>{// async means we will await promises
 
-    const newProduct = {//creating a new, hard coded, product with dummy data
-        "sku": "ASB124",
-        "name": "PC Gamer",
-        "productID": "PC003",
-        "image": "",
-        "price": 3456
-    }
+    const newProduct = req.body; //getting the body from postman, you can edit the products there!!!
 
     const productKey = `product:${newProduct.productID}-${Date.now()}`;//creating the unique product ID (to name it in redis), with the productID and the current date information
 
@@ -61,7 +41,19 @@ app.post('/products', async (req, res)=>{// async means we will await promises
         console.error('Error adding product to Redis:', error);
       }
     res.json(newProduct);//respond with a new product
-});
+});s
+
+app.get('/products/:productID', async (req, res)=>{
+    
+    let products = await redisClient.json.get(`product:${req.params.productID}`);
+    res.json(products);
+})
+
+app.get('/boxes', async (req, res)=>{
+    let boxes = await redisClient.json.get('boxes',{path: '$'});//get the boxes
+    //send the boxes to the browser
+    res.json(boxes[0]);//the boxes is an array of arrays, convert first element to a JSON string
+});//return boxes to the user
 
 app.post('/boxes', async (req, res)=>{// async means we will await promises
     const newBox = req.body;
