@@ -2,10 +2,10 @@ const express = require('express');//express makes API's ~ connect frontend to d
 const Redis = require('redis');//import the Redis Library
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { addOrder, getOrder } = require("./services/orderservice.js"); //import the addOrder function from the orderservice.js file
-const { addOrderItem, getOrderItem } = require("./services.orderItems"); // import the addOrderItem function from 
+//const { addOrder, getOrder } = require("./services/orderservice.js"); //import the addOrder function from the orderservice.js file
+//const { addOrderItem, getOrderItem } = require("./services/orderItems"); // import the addOrderItem function from 
 const fs = require("fs"); //import the file system library
-const Schema = JSON.parse(fs.readFileSync("./orderItemSchema.json", "utf8"));//read the orderItemSchema.json file
+//const Schema = JSON.parse(fs.readFileSync("./orderItemSchema.json", "utf8"));//read the orderItemSchema.json file
 const Ajv = require("ajv"); //import the ajv library
 const ajv = new Ajv(); // create an ajv object to validate JSON
 
@@ -39,7 +39,7 @@ app.post("/orders", async (req, res) => {
 
     if (responseStatus === 200) {
         try {
-            //addOrder funciton to handle order creation in the database
+            //addOrder function to handle order creation in the database
             await addOrder({ redisClient, order });
         } catch (error) {
             console.error(error);
@@ -115,7 +115,7 @@ app.post('/products', async (req, res)=>{// async means we will await promises
 
     const newProduct = req.body; //getting the body from postman, you can edit the products there!!!
 
-    const productKey = `product:${newProduct.productID}-${Date.now()}`;//creating the unique product ID (to name it in redis), with the productID and the current date information
+    const productKey = `${newProduct.productID}-${Date.now()}`;//creating the unique product ID (to name it in redis), with the productID and the current date information
 
     try {
         // Set the value of the 'product' key in Redis with the JSON object
@@ -129,7 +129,7 @@ app.post('/products', async (req, res)=>{// async means we will await promises
 
 app.get('/products/:productID', async (req, res)=>{
     
-    let products = await redisClient.json.get(`product:${req.params.productID}`);
+    let products = await redisClient.json.get(`${req.params.productID}`);
     res.json(products);
 });
 
