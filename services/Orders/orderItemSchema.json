@@ -1,0 +1,11 @@
+{
+    "type": "object",
+    "properties": {
+        "orderItemID": {"type": "integer"},
+        "orderID": { "type": "integer" },
+        "productID": { "type": "integer" },
+        "quantity": { "type": "integer" }
+    },
+    "required": ["orderItemID","orderID", "productID", "quantity"],
+    "additionalProperties": false
+}
