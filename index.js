@@ -32,8 +32,8 @@ app.listen(port, ()=>{
 app.post("/order", async (req, res) => {
     let order = req.body;
     //validating properties of order
-    if(!order.orderID || !order.customerID || !order.shippingAddress) {
-        res.status(400).send("Missing required fields in the order");
+    if (!order.shippingAddress) {
+        res.status(400).send("Missing shippingAddress in the order");
         return;
     }
 
