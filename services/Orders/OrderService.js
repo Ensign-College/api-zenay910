@@ -9,7 +9,7 @@ const addOrder = async ({ redisClient, newOrder }) => {
         orderIDs.sort((a, b) => a - b);
 
         //get the highest orderID
-        const highestOrderID = orderIDs.length > 0 ? orderIDs[orderIDs.length - 1] : 0;
+        const highestOrderID = orderIDs.length > 0 ? orderIDs[orderIDs.length - 1] : 100;
 
         //set the orderID for the new order (highest orderID + 1)
         newOrder.orderID = highestOrderID + 1;
@@ -21,7 +21,7 @@ const addOrder = async ({ redisClient, newOrder }) => {
         }));
 
         //finding highest customerID
-        const highestCustomerID = Math.max(...customerIDs, 0);
+        const highestCustomerID = Math.max(...customerIDs, 100);
 
         //setting the new customerID
         newOrder.customerID = highestCustomerID + 1;

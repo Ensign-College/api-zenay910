@@ -39,7 +39,13 @@ app.post("/order", async (req, res) => {
 
     try {
         await addOrder({ redisClient, newOrder: order });
-        res.status(200).send("Order successfully added to Redis");
+        const orderDetails = {
+            orderID: order.orderID,
+            customerID: order.customerID,
+            shippingAddress: order.shippingAddress,
+        };
+
+        res.status(200).json({ orderDetails, message: "Order successfully added to Redis" });
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal server error");
@@ -61,28 +67,21 @@ app.get("/orders/:orderID", async (req, res) => {
 
 app.post("/orderItems", async (req, res) => {
     try {
-        const validate = ajv.compile(Schema);
-        const valid = validate(req.body);
-
-        if(!valid) {
-            return res.status(400).json({ error: "Invalid request body" });
-        }
-
-        console.log("Request Body: ", req.body);
-
-        //calling addOrderItem function and storing the results
-        const orderItemKey = await addOrderItem({
-            redisClient, 
-            newOrderItem: req.body,
-        });
-
-        //responding with result
-        res.status(201).json({ orderItemKey, message: "Order item added successfully" });
+      const orderItems = req.body;
+  
+      // Iterate through order items and add to the database
+      for (const orderItem of orderItems) {
+        // Modify the addOrderItem function to include orderItem
+        await addOrderItem({ redisClient, newOrderItem: orderItem });
+      }
+  
+      res.status(201).json({ message: "Order items added successfully" });
+  
     } catch (error) {
-        console.error("Error adding order item", error);
-        res.status(500).json({ error: "Internal server error" });
+      console.error("Error adding order items", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-});
+  });
 
 app.get("/orderItems/:orderItemID", async (re, res) => {
     try {
