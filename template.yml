@@ -12,7 +12,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: vpc-066e6a637e37f2752
-      CidrBlock: 10.0.0.0/24
+      CidrBlock: 10.0.0.0/16
 
   MyElasticacheSubnetGroup:
     Type: AWS::ElastiCache::SubnetGroup
@@ -29,7 +29,7 @@ Resources:
       NumCacheNodes: 1
       Port: 6379
       VpcSecurityGroupIds:
-        - vpc-066e6a637e37f2752
+        - sg-07ec2d53f9a809563
       CacheSubnetGroupName: !Ref MyElasticacheSubnetGroup
 
   MySecurityGroup:
