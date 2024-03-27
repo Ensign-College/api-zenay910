@@ -3,16 +3,16 @@ Transform: 'AWS::Serverless-2016-10-31'
 
 Resources:
 
-  MyVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.0.0.0/16
+  # MyVPC:
+  #   Type: AWS::EC2::VPC
+  #   Properties:
+  #     CidrBlock: 10.0.0.0/16
 
-  MySubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref MyVPC
-      CidrBlock: 10.0.0.0/24
+  # MySubnet:
+  #   Type: AWS::EC2::Subnet
+  #   Properties:
+  #     VpcId: !Ref MyVPC
+  #     CidrBlock: 10.0.0.0/24
 
   MyElasticacheSubnetGroup:
     Type: AWS::ElastiCache::SubnetGroup
