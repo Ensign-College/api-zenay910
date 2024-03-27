@@ -48,7 +48,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: nodejs20.x
-      CodeUri: ./
+      CodeUri: ./lambda-jose-function.zip
       MemorySize: 128
       Timeout: 30
       Environment:
