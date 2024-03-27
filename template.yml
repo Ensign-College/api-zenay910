@@ -29,7 +29,7 @@ Resources:
       NumCacheNodes: 1
       Port: 6379
       VpcSecurityGroupIds:
-        - sg-016c8c59b0fc00ac7
+        - !GetAtt MySecurityGroup.GroupId
       CacheSubnetGroupName: !Ref MyElasticacheSubnetGroup
 
   MySecurityGroup:
