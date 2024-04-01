@@ -46,7 +46,7 @@ Resources:
   MyLambdaFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: index.handler
+      Handler: index.test
       Runtime: nodejs20.x
       CodeUri: ./lambda-jose-function.zip
       MemorySize: 128
