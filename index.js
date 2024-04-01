@@ -8,6 +8,7 @@ const redisClient = Redis.createClient({
 });
 
 exports.test = async (event, context) => {
+    event.redisClient = redisClient;
     return {
         statusCode: 200,
         body: JSON.stringify({message: 'WORKS!', event, context})
