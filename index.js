@@ -13,7 +13,7 @@ exports.test = async (event, context) => {
         statusCode: 200,
         body: JSON.stringify({message: 'WORKS!', event, context})
     }
-}
+};
 
 exports.createOrder = async (event, context) => {
     try {
