@@ -81,7 +81,7 @@ Resources:
       Runtime: nodejs20.x
       CodeUri: .
       Events:
-        GetOrder:
+        CreateOrder:
           Type: Api
           Properties:
             Path: /createOrder
