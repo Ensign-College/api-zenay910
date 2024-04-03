@@ -48,9 +48,8 @@ exports.createOrder = async (event, context) => {
 
 exports.getOrderById = async (event, context) => {
     try {
-        event.redisClient = redisClient;
         const orderID = event.pathParameters.orderID;
-        const order = await getOrder({ event.redisClient, orderID });
+        const order = await getOrder({ redisClient, orderID });
         if (!order) {
             return {
                 statusCode: 404,
