@@ -85,4 +85,4 @@ Resources:
           Type: Api
           Properties:
             Path: /createOrder
-            Method: get
+            Method: post
