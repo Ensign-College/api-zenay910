@@ -71,5 +71,5 @@ Resources:
         GetOrder:
           Type: Api
           Properties:
-            Path: /orders/{id}
+            Path: /orders/{orderID}
             Method: get
