@@ -65,7 +65,7 @@ exports.getOrderById = async (event, context) => {
         console.error(error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: "Internal server error" })
+            body: JSON.stringify({ error: "Hello, Jeff" })
         };
     }
 };
