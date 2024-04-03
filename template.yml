@@ -73,3 +73,16 @@ Resources:
           Properties:
             Path: /orders/{orderID}
             Method: get
+
+  CreateOrderFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.createOrder
+      Runtime: nodejs20.x
+      CodeUri: .
+      Events:
+        GetOrder:
+          Type: Api
+          Properties:
+            Path: /createOrder
+            Method: get
