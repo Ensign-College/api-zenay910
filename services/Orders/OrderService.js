@@ -27,7 +27,7 @@ const addOrder = async ({ redisClient, newOrder }) => {
         // newOrder.customerID = highestCustomerID + 1;
 
         //creating the key etc
-        const orderKey = `order:${newOrder.orderID}-${Date.now()}`;
+        const orderKey = `order:${newOrder.orderID}`; //-${Date.now()}
         await redisClient.json.set(orderKey, '.', newOrder);
         console.log('Order added successfully to Redis');
     } catch (error) {
