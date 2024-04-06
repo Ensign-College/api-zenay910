@@ -62,18 +62,18 @@ Resources:
             Path: /myendpoint
             Method: get
 
-  GetOrderByIDFunction:
-    Type: 'AWS::Serverless::Function'
-    Properties:
-      Handler: index.getOrderById
-      Runtime: nodejs20.x
-      CodeUri: .
-      Events:
-        GetOrder:
-          Type: Api
-          Properties:
-            Path: /orders/{orderID}
-            Method: get
+  # GetOrderByIDFunction:
+  #   Type: 'AWS::Serverless::Function'
+  #   Properties:
+  #     Handler: index.getOrderById
+  #     Runtime: nodejs20.x
+  #     CodeUri: .
+  #     Events:
+  #       GetOrder:
+  #         Type: Api
+  #         Properties:
+  #           Path: /orders/{orderID}
+  #           Method: get
 
   CreateOrderFunction:
     Type: 'AWS::Serverless::Function'
@@ -86,6 +86,7 @@ Resources:
       Environment:
         Variables:
           REDIS_HOST: !GetAtt MyElasticacheRedis.RedisEndpoint.Address
+          REDIS_PORT: !GetAtt MyElasticacheRedis.RedisEndpoint.Port
       Events:
         CreateOrder:
           Type: Api
