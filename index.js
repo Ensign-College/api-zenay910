@@ -17,7 +17,7 @@ exports.test = async (event, context) => {
 };
 
 exports.createOrder = async (event, context) => {
-    event.redisClient = redisClient;
+    
     try {
         const order = JSON.parse(event.body);
         // Validating properties of order
@@ -28,6 +28,7 @@ exports.createOrder = async (event, context) => {
             };
         }
 
+        event.redisClient = redisClient;
         await addOrder({ redisClient, newOrder: order });
         const orderDetails = {
             orderID: order.orderID,
