@@ -80,6 +80,11 @@ Resources:
       Handler: index.createOrder
       Runtime: nodejs20.x
       CodeUri: .
+      MemorySize: 128
+      Timeout: 30
+      Environment:
+        Variables:
+          REDIS_HOST: !GetAtt MyElasticacheRedis.RedisEndpoint.Address
       Events:
         CreateOrder:
           Type: Api
