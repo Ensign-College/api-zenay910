@@ -17,7 +17,7 @@ exports.test = async (event, context) => {
 };
 
 exports.createOrder = async (event, context) => {
-    await redisClient.connect();
+    //await redisClient.connect();
     try {
         const order = JSON.parse(event.body);
         // Validating properties of order
