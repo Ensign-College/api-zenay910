@@ -10,14 +10,14 @@ const Schema = JSON.parse(fs.readFileSync("./services/Orders/orderItemSchema.jso
 const Ajv = require("ajv"); //import the ajv library
 const ajv = new Ajv(); // create an ajv object to validate JSON
 
-// const options = {
-//     origin:'http://localhost:3000'//allow our frontend to call this backend
-// }
+const options = {
+    origin:'http://localhost:3000'//allow our frontend to call this backend
+}
 
-// const app = express();//create on express application ~ it's like a constructor 
-// const redisClient = Redis.createClient({
-//     url:`redis://localhost:6379`
-// });
+const app = express();//create on express application ~ it's like a constructor 
+const redisClient = Redis.createClient({
+    url:`redis://localhost:6379`
+});
 
 app.use(bodyParser.json());
 app.use(cors(options));//allow frontend to call backend

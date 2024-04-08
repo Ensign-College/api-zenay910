@@ -3,8 +3,10 @@ const { addOrder, getOrder } = require("./services/Orders/OrderService.js");
 const { addOrderItem, getOrderItem } = require("./services/Orders/OrderItems.js");
 const { addProduct, getProduct } = require("./services/Products/ProductService.js");
 
+const redisHost = process.env.REDIS_HOST
+
 const redisClient = Redis.createClient({
-    host: 'jos-my-1bv4m968vy0or.kxxsr4.0001.use1.cache.amazonaws.com',
+    host: redisHost,
     port: '6379'
 });
 
